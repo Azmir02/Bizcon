@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import Groups from './Groups'
-import Userpanel from './Userpanel'
+import Friends from './Friends'
 export default class Sidepanel extends Component {
     render() {
         return (
             <div>
-               <Menu style = {{background: "#42505D",width: "300px"}} fixed = "left" vertical size = "large" >
-                    <Userpanel user = {this.props.user}></Userpanel>
-                    <Groups user = {this.props.user}></Groups>
+               <Menu style = {{background: "#1F2937",width: "100%",paddingTop: 100, height: "100vh",borderRadius: 0}} vertical size = "large" >
+                    <Groups groupuser = {this.props.userGroup}></Groups>
+                    <Friends usernew = {this.props.user}></Friends>
                </Menu>
+               
             </div>
         )
     }

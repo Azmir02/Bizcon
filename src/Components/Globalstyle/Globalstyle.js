@@ -11,7 +11,7 @@ ul,ol{
     list-style-type: none;
 }
 body{
-    background-color: #F3F3F3
+    background-color: #F3F4F6;
 }
 `
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Button, Form, Icon, Input, Message } from 'semantic-ui-react'
 import login from '../../login.png'
-import { auth, signInWithEmailAndPassword } from '../Firebaseconfig'
+import { auth, signInWithEmailAndPassword} from '../Firebaseconfig'
 import { Bottomlogin, ButtonGrp, Header, Loginbox, LoginImg } from './Loginstyle'
 export default class Login extends Component {
     state = {

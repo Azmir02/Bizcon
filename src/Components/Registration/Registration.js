@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { NavLink ,Navigate} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import { Button, Form, Icon, Message } from 'semantic-ui-react'
 import Regimg from '../../Registrations.png'
-import { auth, createUserWithEmailAndPassword, getDatabase, ref, set, updateProfile } from '../Firebaseconfig'
+import { auth, createUserWithEmailAndPassword, getDatabase, ref, set, updateProfile} from '../Firebaseconfig'
 import { Divsize, FlexItem, Header, Registerbox } from './Registrationstyle'
 export default class Registration extends Component {
     state = {
@@ -40,10 +40,9 @@ export default class Registration extends Component {
             this.setState({load: true})
             createUserWithEmailAndPassword(auth, this.state.email, this.state.password).then((userCredential) => {
                 updateProfile(auth.currentUser, {
-                    displayName: this.state.userName
+                    displayName: this.state.userName,
                   }).then(()=>{
                       this.writeUserData(userCredential)
-                      window.location.href = "/login"
                   }).then(() => {
                     this.setState({userName: ''})
                     this.setState({email: ''})
@@ -80,6 +79,7 @@ export default class Registration extends Component {
             username: this.state.userName
         });
       }
+
     render() {
         //This is for value
         const {userName,email,password,confirmPass,errormsg,successMsg,load} = this.state

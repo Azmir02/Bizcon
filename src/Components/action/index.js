@@ -4,7 +4,7 @@ export const UserLogin = (user)=>{
     return{
         type: actionType.USER_LOGGED,
         payload:{
-            currentUser : user
+            currentUser : user,
         }
     }
 }
@@ -19,6 +19,26 @@ export const currentgroups = (groups)=>{
         type: actionType.CURRENT_GROUP,
         payload:{
             currentgroup: groups
+        }
+    }
+}
+
+
+export const progrecess = (fileprogress)=>{
+    return{
+        type: actionType.PROGRESS_BAR,
+        payload:{   
+            progressbar: fileprogress
+        }
+    }
+}
+
+
+export const profile = (profileuser)=>{
+    return{
+        type: actionType.PROFILE,
+        payload:{
+            profile: profileuser
         }
     }
 }

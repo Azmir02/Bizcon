@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, Header, Icon, Modal,Message,Menu } from 'semantic-ui-react'
-import { getDatabase, ref, push, set,onValue } from "../Firebaseconfig";
+import { getDatabase, ref, push, set,onValue} from "../Firebaseconfig";
 import { connect } from 'react-redux';
 import { currentgroups } from '../action';
 class Groups extends Component {
@@ -33,43 +33,43 @@ class Groups extends Component {
         }
     }
 
-    handleCreate = (e)=>{
-        e.preventDefault()
-        if(this.Formvalid(this.state)){
-            const db = getDatabase();
-            const GrouptListRef = ref(db, 'Groups');
-            const GroupPostRef = push(GrouptListRef);
-            set(GroupPostRef, {
-                groupName: this.state.groupName,
-                groupTitle: this.state.groupTitle,
-                createdby: this.props.user
-            }).then(()=>{
-                this.setState({modal: false})
-                this.setState({groupName: ''})
-                this.setState({groupTitle: ''})
-                this.setState({errMsg: ''})
-            })
-        }
-        
-    }
 
     componentDidMount(){
-        let groupsCount = []
         const db = getDatabase();
             const starCountRef = ref(db, 'Groups');
             onValue(starCountRef, (snapshot) => {
+            let groupsCount = []
             snapshot.forEach(item=>{
                 let groupAll = {
                     id: item.key,
-                    createdby: item.val().createdby,
+                    createdBy: item.val().createdby,
                     groupName: item.val().groupName,
                     groupTitle: item.val().groupTitle
 
                 }
-                groupsCount.push(groupAll) 
+                groupsCount.push(groupAll)
             })
             this.setState({groups: groupsCount},this.firstGroupafterload)
-        });
+        })
+        
+    }
+
+    
+    handleCreate = (e)=>{
+        e.preventDefault()
+        if(this.Formvalid(this.state)){
+                const db = getDatabase();
+                const grouptListRef = ref(db, 'Groups');
+                const groupPostRef = push(grouptListRef);
+                set(groupPostRef, {
+                    groupName: this.state.groupName,
+                    groupTitle: this.state.groupTitle,
+                    createdBy: this.props.groupuser
+                 }).then(()=>{
+                    this.setState({modal: false})
+                 })
+        }
+        
     }
 
     firstGroupafterload = ()=>{
@@ -89,13 +89,12 @@ class Groups extends Component {
         const {groupename,grouptitle,errMsg} = this.state
         return (
             <>
-                <Header as = "h4" textAlign = "center" style = {{color: "#fff"}}><Icon name = "group" style = {{display: "inline-block",marginRight: 10}}/>Groups({this.state.groups.length})<Icon onClick = {this.open} name = "plus square" style = {{display: "inline-block", marginLeft: 120}}/></Header>
-                <Menu text vertical style = {{marginLeft: 20}}>
-                    <Menu.Item style = {{fontSize: "16px",color: "#fff"}} >Groups Name</Menu.Item>
+                <Header as = "h4" textAlign = "center" style = {{color: "#989FAB"}}><Icon name = "group" style = {{display: "inline-block",marginRight: 10}}/>Groups({this.state.groups.length})<Icon onClick = {this.open} name = "plus square" style = {{display: "inline-block", marginLeft: 50}}/></Header>
+                <Menu text vertical style = {{marginLeft: 10}}>
+                    <Menu.Item style = {{fontSize: "16px",color: "#989FAB"}} >Groups Name</Menu.Item>
                     {this.state.groups.map((mainGroup)=>(
                             <Menu.Item onClick = {()=>{this.groupDetails(mainGroup)}} style = {mainGroup.id == this.state.active ? afterActive : beforeActive}>{mainGroup.groupName}</Menu.Item>
                     ))}
-                    
                 </Menu>
                 <Modal style = {{width: 400}}
                     basic
@@ -129,7 +128,6 @@ class Groups extends Component {
                         <Button onClick = {this.close} basic color='red' inverted>
                         <Icon name='remove' /> Close
                         </Button>
-                      
                     </Modal.Actions>
                 </Modal>
             </>
@@ -138,16 +136,17 @@ class Groups extends Component {
 }
 
 let beforeActive = {
-    color: "#fff",
+    color: "#989FAB",
     fontSize: "13px"
 }
 let afterActive = {
-    color: "#444",
+    color: "#fff",
     fontSize: "14px",
-    backgroundColor: "#fff",
+    backgroundColor: "#111827",
     fontWeight: "700",
     padding: "10px",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    width:" 215px"
 }
 
 export default connect(null,{currentgroups})(Groups)

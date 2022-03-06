@@ -38,9 +38,43 @@ const groupreducer = (state = initialValuegroup,action)=>{
     }
 }
 
+const initialprogress = {
+    progressbar: null
+}
+
+const progressfiles = (state = initialprogress,action)=>{
+    switch(action.type){
+        case actionType.PROGRESS_BAR:
+            return{
+                progressbar: action.payload.progressbar
+            }
+       
+        default:
+            return state
+    }
+}
+
+const initialprofile = {
+    profileuser: null
+}
+
+const profile = (state = initialprofile,action)=>{
+    switch(action.type){
+        case actionType.PROFILE:
+            return{
+                profileuser: action.payload.profileuser
+            }
+        default:
+               return state
+    }
+}
+
+
 const rootReducer = combineReducers({
     user: CreateReducer,
-    groups: groupreducer
+    groups: groupreducer,
+    progress: progressfiles,
+    profile: profile
 })
 
 export default rootReducer
